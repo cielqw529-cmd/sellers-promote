@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Flash Sale</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF6B6B;
+      --primary-dark: #E85555;
+      --secondary: #FFE66D;
+      --accent: #4ECDC4;
+      --bg-warm: #FFF9F5;
+      --bg-card: #FFFFFF;
+      --text-main: #2D3436;
+      --text-sub: #636E72;
+      --text-light: #B2BEC3;
+      --shadow-soft: 0 4px 20px rgba(255, 107, 107, 0.15);
+      --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.08);
+      --radius: 16px;
+      --radius-sm: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-warm);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 450px;
+      margin: 0 auto;
+      padding-bottom: 100px;
+    }
+
+    /* ========== Hero Banner ========== */
+    .hero-banner {
+      width: 100%;
+      aspect-ratio: 750 / 500;
+      background: linear-gradient(135deg, #FFE5E5 0%, #FFD4D4 50%, #FFCECE 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      animation: shimmer 8s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(10%, 10%); }
+    }
+
+    .hero-placeholder {
+      text-align: center;
+      color: var(--primary);
+      z-index: 1;
+    }
+
+    .hero-placeholder-icon {
+      width: 64px;
+      height: 64px;
+      border: 3px dashed var(--primary);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 28px;
+      opacity: 0.6;
+    }
+
+    .hero-placeholder-text {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .hero-placeholder-size {
+      font-size: 12px;
+      opacity: 0.6;
+      margin-top: 4px;
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    /* ========== Rules Section ========== */
+    .rules-section {
+      margin: 20px 16px;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rules-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-main);
+    }
+
+    .section-title-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+    }
+
+    .rules-content {
+      color: var(--text-sub);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .rules-content p {
+      margin-bottom: 8px;
+    }
+
+    .rules-content .placeholder {
+      color: var(--text-light);
+      font-style: italic;
+      padding: 20px;
+      text-align: center;
+      border: 2px dashed var(--text-light);
+      border-radius: var(--radius-sm);
+    }
+
+    /* ========== Products Section ========== */
+    .products-section {
+      margin: 20px 16px;
+    }
+
+    .products-header {
+      margin-bottom: 16px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .product-card:active {
+      transform: scale(0.98);
+    }
+
+    .product-image {
+      width: 100%;
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #f5f5f5, #eee);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .product-image-placeholder {
+      color: var(--text-light);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .product-info {
+      padding: 12px;
+    }
+
+    .product-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 40px;
+      margin-bottom: 8px;
+    }
+
+    .product-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .product-price {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .product-price::before {
+      content: '$';
+      font-size: 13px;
+    }
+
+    .product-original-price {
+      font-size: 12px;
+      color: var(--text-light);
+      text-decoration: line-through;
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      z-index: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ========== Sellers Section ========== */
+    .sellers-section {
+      margin: 20px 16px;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .sellers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px 16px;
+    }
+
+    .seller-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .seller-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+      border: 3px solid white;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .seller-item:active .seller-avatar {
+      transform: scale(0.95);
+    }
+
+    .seller-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .seller-avatar-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      font-size: 22px;
+    }
+
+    .seller-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-sub);
+      text-align: center;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ========== Footer Section ========== */
+    .footer-section {
+      margin: 20px 16px;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .footer-content {
+      color: var(--text-sub);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .footer-content .placeholder {
+      color: var(--text-light);
+      font-style: italic;
+      padding: 30px 20px;
+      text-align: center;
+      border: 2px dashed var(--text-light);
+      border-radius: var(--radius-sm);
+    }
+
+    /* ========== Floating Download Button ========== */
+    .download-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 6px 24px rgba(255, 107, 107, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      z-index: 1000;
+      white-space: nowrap;
+    }
+
+    .download-btn:active {
+      transform: translateX(-50%) scale(0.96);
+    }
+
+    .download-btn-icon {
+      font-size: 18px;
+    }
+
+    .download-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 50px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+      pointer-events: none;
+    }
+
+    /* Pulse animation for download button */
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 6px 24px rgba(255, 107, 107, 0.4); }
+      50% { box-shadow: 0 6px 32px rgba(255, 107, 107, 0.6); }
+    }
+
+    .download-btn {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* ========== Safe Area ========== */
+    .footer-safe {
+      height: env(safe-area-inset-bottom, 20px);
+    }
+
+    /* ========== Animations ========== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .rules-section { animation: fadeInUp 0.5s ease 0.1s both; }
+    .products-section { animation: fadeInUp 0.5s ease 0.2s both; }
+    .sellers-section { animation: fadeInUp 0.5s ease 0.3s both; }
+    .footer-section { animation: fadeInUp 0.5s ease 0.4s both; }
+
+    .product-card:nth-child(1) { animation: fadeInUp 0.4s ease 0.3s both; }
+    .product-card:nth-child(2) { animation: fadeInUp 0.4s ease 0.35s both; }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    .download-btn {
+      animation: slideUp 0.5s ease 0.5s both, pulse 2s ease-in-out 1s infinite;
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 340px) {
+      .products-grid {
+        gap: 10px;
+      }
+
+      .product-info {
+        padding: 10px;
+      }
+
+      .download-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ========== Hero Banner ========== -->
+    <!-- Recommended size: 750 x 500 px (@2x), displays at 375 x 250 -->
+    <div class="hero-banner">
+      <img src="banner.jpg" alt="Event Banner">
+      <div class="hero-placeholder">
+        <div class="hero-placeholder-icon">🖼️</div>
+        <div class="hero-placeholder-text">Banner Area</div>
+        <div class="hero-placeholder-size">Recommended: 750 × 500 px</div>
+      </div>
+    </div>
+
+    <!-- ========== Rules ========== -->
+    <section class="rules-section">
+      <h2 class="section-title">
+        <span class="section-title-icon">📋</span>
+        Event Rules
+      </h2>
+      <div class="rules-content">
+        <p class="placeholder">Rules content to be added...</p>
+        <!--
+        <p>1. Event period: XX/XX/2024 - XX/XX/2024</p>
+        <p>2. Limited stock available, while supplies last</p>
+        <p>3. Maximum X items per customer</p>
+        -->
+      </div>
+    </section>
+
+    <!-- ========== Products ========== -->
+    <section class="products-section">
+      <div class="products-header">
+        <h2 class="section-title">
+          <span class="section-title-icon">🔥</span>
+          Flash Deals
+        </h2>
+      </div>
+
+      <div class="products-grid">
+        <!-- Product 1 -->
+        <a href="#" class="product-card" data-product="1">
+          <span class="product-tag">Sale</span>
+          <div class="product-image">
+            <img src="product1.jpg" alt="Product 1">
+            <span class="product-image-placeholder">Product 1<br>1:1 ratio</span>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Product name here</div>
+            <div class="product-price-row">
+              <span class="product-price">99</span>
+              <span class="product-original-price">$199</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Product 2 -->
+        <a href="#" class="product-card" data-product="2">
+          <span class="product-tag">Sale</span>
+          <div class="product-image">
+            <img src="product2.jpg" alt="Product 2">
+            <span class="product-image-placeholder">Product 2<br>1:1 ratio</span>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Product name here</div>
+            <div class="product-price-row">
+              <span class="product-price">99</span>
+              <span class="product-original-price">$199</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ========== Sellers ========== -->
+    <section class="sellers-section">
+      <h2 class="section-title">
+        <span class="section-title-icon">👥</span>
+        Participating Sellers
+      </h2>
+
+      <div class="sellers-grid">
+        <!-- Seller 1 -->
+        <a href="#" class="seller-item" data-seller="1">
+          <div class="seller-avatar">
+            <img src="seller1.jpg" alt="Seller 1">
+            <span class="seller-avatar-placeholder">👤</span>
+          </div>
+          <span class="seller-name">Seller 1</span>
+        </a>
+
+        <!-- Seller 2 -->
+        <a href="#" class="seller-item" data-seller="2">
+          <div class="seller-avatar">
+            <img src="seller2.jpg" alt="Seller 2">
+            <span class="seller-avatar-placeholder">👤</span>
+          </div>
+          <span class="seller-name">Seller 2</span>
+        </a>
+
+        <!-- Seller 3 -->
+        <a href="#" class="seller-item" data-seller="3">
+          <div class="seller-avatar">
+            <img src="seller3.jpg" alt="Seller 3">
+            <span class="seller-avatar-placeholder">👤</span>
+          </div>
+          <span class="seller-name">Seller 3</span>
+        </a>
+
+        <!-- Seller 4 -->
+        <a href="#" class="seller-item" data-seller="4">
+          <div class="seller-avatar">
+            <img src="seller4.jpg" alt="Seller 4">
+            <span class="seller-avatar-placeholder">👤</span>
+          </div>
+          <span class="seller-name">Seller 4</span>
+        </a>
+
+        <!-- Seller 5 -->
+        <a href="#" class="seller-item" data-seller="5">
+          <div class="seller-avatar">
+            <img src="seller5.jpg" alt="Seller 5">
+            <span class="seller-avatar-placeholder">👤</span>
+          </div>
+          <span class="seller-name">Seller 5</span>
+        </a>
+
+        <!-- Seller 6 -->
+        <a href="#" class="seller-item" data-seller="6">
+          <div class="seller-avatar">
+            <img src="seller6.jpg" alt="Seller 6">
+            <span class="seller-avatar-placeholder">👤</span>
+          </div>
+          <span class="seller-name">Seller 6</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ========== Footer Content ========== -->
+    <section class="footer-section">
+      <div class="footer-content">
+        <p class="placeholder">Footer content to be added...</p>
+        <!--
+        Add your custom content here
+        -->
+      </div>
+    </section>
+
+    <div class="footer-safe"></div>
+  </div>
+
+  <!-- ========== Floating Download Button ========== -->
+  <a href="#" class="download-btn">
+    <span class="download-btn-icon">📲</span>
+    Download App
+  </a>
+
+</body>
+</html>
