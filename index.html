@@ -461,53 +461,54 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
-      transform: scale(0.72);
-      transform-origin: center;
+      gap: 6px;
     }
 
     .verified-pill {
-      min-width: 118px;
-      height: 38px;
+      height: 32px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       border-radius: 999px;
-      background: #706b83;
+      padding: 0 16px;
+      background: #6b7280;
       color: #ffffff;
-      font-size: 26px;
-      font-weight: 800;
+      font-size: 16px;
+      font-weight: 600;
       line-height: 1;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
     }
 
     .verified-shield {
       position: relative;
-      width: 38px;
-      height: 42px;
-      background: #35aa45;
-      clip-path: polygon(50% 0, 88% 14%, 88% 55%, 50% 100%, 12% 55%, 12% 14%);
-      filter: drop-shadow(0 2px 2px rgba(23, 32, 51, 0.18));
+      width: 28px;
+      height: 32px;
+      background: #22c55e;
+      border-radius: 4px 4px 8px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .verified-shield::before {
       content: "";
       position: absolute;
-      inset: 3px;
-      background: #43bd52;
-      clip-path: polygon(50% 0, 88% 14%, 88% 55%, 50% 100%, 12% 55%, 12% 14%);
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 4px 4px 0 0;
     }
 
     .verified-shield::after {
       content: "";
-      position: absolute;
-      left: 14px;
-      top: 13px;
       width: 8px;
-      height: 15px;
+      height: 14px;
       border: solid #ffffff;
-      border-width: 0 4px 4px 0;
+      border-width: 0 3px 3px 0;
       transform: rotate(45deg);
+      margin-top: -2px;
     }
 
     .footer {
