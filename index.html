@@ -1073,18 +1073,47 @@
   <div class="toast" role="status"></div>
 
   <script>
-    const toast = document.querySelector(".toast");
-    let toastTimer;
+    // Bridge injection for in-app navigation
+    var inject_default = () => {
+      var bridge = {
+        default: void 0,
+        call: function(action, params, callbacks) {
+          if (window.IslandsBridge && window.IslandsBridge.call) {
+            window.IslandsBridge.call(action, JSON.stringify(params), callbacks);
+          } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.IslandsBridge) {
+            window.webkit.messageHandlers.IslandsBridge.postMessage({action, params, callbacks});
+          }
+        }
+      };
+      window.callBridge = function(action, params, callbacks) {
+        bridge.call(action, params, callbacks);
+      };
+    };
+    inject_default();
 
-    document.querySelectorAll(".js-placeholder-link").forEach((link) => {
-      link.addEventListener("click", (e) => {
-        if (link.getAttribute("href") !== "#") return;
-        e.preventDefault();
-        const name = link.dataset.linkName || "This link";
-        toast.textContent = `${name} is ready to connect.`;
-        toast.classList.add("is-visible");
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2000);
+    // Check if running inside app
+    function isInApp() {
+      return !!(window.IslandsBridge || (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.IslandsBridge));
+    }
+
+    // Handle in-app navigation for product and seller links
+    document.querySelectorAll('.product-card, .seller').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const targetUrl = link.getAttribute('href');
+        if (!targetUrl || targetUrl === '#') return;
+
+        if (isInApp()) {
+          e.preventDefault();
+          callBridge(
+            "navigateTo",
+            { path: targetUrl },
+            {
+              success: (result) => console.log('Navigation success:', result),
+              fail: (error) => console.error('Navigation failed:', error)
+            }
+          );
+        }
+        // If not in app, let the default <a> behavior handle it
       });
     });
   </script>
