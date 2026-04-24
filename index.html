@@ -2,213 +2,313 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Flash Sale</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#fff7f2">
+  <title>Weekly Saturday Pre-sale | ISLANDS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #FF6B6B;
-      --primary-dark: #E85555;
-      --secondary: #FFE66D;
-      --accent: #4ECDC4;
-      --bg-warm: #FFF9F5;
-      --bg-card: #FFFFFF;
-      --text-main: #2D3436;
-      --text-sub: #636E72;
-      --text-light: #B2BEC3;
-      --shadow-soft: 0 4px 20px rgba(255, 107, 107, 0.15);
-      --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.08);
-      --radius: 16px;
-      --radius-sm: 12px;
+      --bg: #fff7f2;
+      --surface: #ffffff;
+      --surface-strong: #fff0e8;
+      --ink: #172033;
+      --muted: #687083;
+      --soft: #8f98aa;
+      --line: #e9dcd2;
+      --primary: #ff5a3d;
+      --primary-dark: #d83d28;
+      --teal: #0f9f96;
+      --gold: #f2b93b;
+      --shadow: 0 10px 28px rgba(23, 32, 51, 0.12);
+      --shadow-soft: 0 6px 18px rgba(23, 32, 51, 0.08);
+      --radius: 8px;
     }
 
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
 
+    html {
+      min-width: 320px;
+      background: var(--bg);
+    }
+
     body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-warm);
-      color: var(--text-main);
-      line-height: 1.6;
-      min-height: 100vh;
+      margin: 0;
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, #fff7f2 0%, #f7fbff 46%, #fff7f2 100%);
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
-    .container {
-      max-width: 450px;
+    a {
+      color: inherit;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .page {
+      width: min(100%, 450px);
+      min-height: 100vh;
       margin: 0 auto;
-      padding-bottom: 100px;
-    }
-
-    /* ========== Hero Banner ========== */
-    .hero-banner {
-      width: 100%;
-      aspect-ratio: 750 / 500;
-      background: linear-gradient(135deg, #FFE5E5 0%, #FFD4D4 50%, #FFCECE 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 12px 12px calc(110px + env(safe-area-inset-bottom));
       position: relative;
-      overflow: hidden;
     }
 
-    .hero-banner::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-      animation: shimmer 8s ease-in-out infinite;
-    }
-
-    @keyframes shimmer {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(10%, 10%); }
-    }
-
-    .hero-placeholder {
-      text-align: center;
-      color: var(--primary);
-      z-index: 1;
-    }
-
-    .hero-placeholder-icon {
-      width: 64px;
-      height: 64px;
-      border: 3px dashed var(--primary);
-      border-radius: 16px;
+    .topbar {
+      height: 52px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin: 0 auto 12px;
-      font-size: 28px;
-      opacity: 0.6;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 0 2px;
     }
 
-    .hero-placeholder-text {
-      font-size: 14px;
-      opacity: 0.8;
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
     }
 
-    .hero-placeholder-size {
-      font-size: 12px;
-      opacity: 0.6;
-      margin-top: 4px;
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #111827;
+      box-shadow: var(--shadow-soft);
+      flex: 0 0 auto;
     }
 
-    .hero-banner img {
+    .brand-mark img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: none;
     }
 
-    /* ========== Rules Section ========== */
-    .rules-section {
-      margin: 20px 16px;
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow-card);
-      position: relative;
+    .brand-copy {
+      min-width: 0;
+    }
+
+    .brand-name {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0;
+      line-height: 1.1;
+    }
+
+    .brand-meta {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .date-pill {
+      flex: 0 0 auto;
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(255, 90, 61, 0.24);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--primary-dark);
+      font-size: 11px;
+      font-weight: 800;
+      box-shadow: 0 4px 14px rgba(255, 90, 61, 0.08);
+    }
+
+    .hero {
       overflow: hidden;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: #ffe2d3;
     }
 
-    .rules-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+    .hero img {
+      width: 100%;
+      aspect-ratio: 750 / 500;
+      object-fit: cover;
+    }
+
+    .hero-panel {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: end;
+      padding: 13px 14px 14px;
+      background: #ffffff;
+      border-top: 1px solid rgba(233, 220, 210, 0.9);
+    }
+
+    .hero-kicker {
+      color: var(--teal);
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      margin-top: 4px;
+      font-size: 19px;
+      font-weight: 800;
+      line-height: 1.08;
+    }
+
+    .hero-tag {
+      justify-self: end;
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border-radius: 999px;
+      padding: 8px 13px;
+      background: var(--ink);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .section {
+      margin-top: 16px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      padding: 0 2px;
     }
 
     .section-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: var(--text-main);
+      margin: 0;
+      color: var(--ink);
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.2;
     }
 
-    .section-title-icon {
+    .section-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .rules {
+      display: grid;
+      gap: 8px;
+    }
+
+    .rule {
+      min-height: 68px;
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid rgba(233, 220, 210, 0.9);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .rule-index {
       width: 28px;
       height: 28px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      border-radius: 8px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-size: 14px;
-    }
-
-    .rules-content {
-      color: var(--text-sub);
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    .rules-content p {
-      margin-bottom: 8px;
-    }
-
-    .rules-content .placeholder {
-      color: var(--text-light);
-      font-style: italic;
-      padding: 20px;
+      border-radius: 999px;
+      background: rgba(255, 90, 61, 0.12);
+      color: var(--primary-dark);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1;
       text-align: center;
-      border: 2px dashed var(--text-light);
-      border-radius: var(--radius-sm);
+      font-variant-numeric: tabular-nums;
     }
 
-    /* ========== Products Section ========== */
-    .products-section {
-      margin: 20px 16px;
+    .rule-index span {
+      display: block;
+      transform: translateY(2px);
     }
 
-    .products-header {
-      margin-bottom: 16px;
+    .rule strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.25;
     }
 
-    .products-grid {
+    .rule span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .product-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
     }
 
     .product-card {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
       position: relative;
+      overflow: hidden;
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+      transition: transform 160ms ease, box-shadow 160ms ease;
     }
 
     .product-card:active {
-      transform: scale(0.98);
+      transform: translateY(1px) scale(0.985);
+      box-shadow: 0 3px 10px rgba(23, 32, 51, 0.12);
+    }
+
+    .product-badge-top {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      z-index: 1;
+      border-radius: 999px;
+      padding: 4px 6px;
+      background: rgba(23, 32, 51, 0.88);
+      color: #ffffff;
+      font-size: 8px;
+      font-weight: 800;
+      line-height: 1;
     }
 
     .product-image {
-      width: 100%;
       aspect-ratio: 1;
-      background: linear-gradient(135deg, #f5f5f5, #eee);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: #f1f5f9;
       overflow: hidden;
     }
 
@@ -216,426 +316,577 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: none;
+      transition: transform 220ms ease;
     }
 
-    .product-image-placeholder {
-      color: var(--text-light);
-      font-size: 12px;
-      text-align: center;
+    .product-card:active .product-image img {
+      transform: scale(1.03);
     }
 
-    .product-info {
-      padding: 12px;
+    .product-body {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      padding: 8px;
     }
 
-    .product-name {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-main);
-      line-height: 1.4;
+    .product-series {
+      min-height: 20px;
+      color: var(--soft);
+      font-size: 8px;
+      font-weight: 700;
+      line-height: 1.25;
+      overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      overflow: hidden;
-      min-height: 40px;
-      margin-bottom: 8px;
     }
 
-    .product-price-row {
+    .product-name {
+      min-height: 32px;
+      margin-top: 4px;
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1.28;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .price-row {
       display: flex;
       align-items: baseline;
-      gap: 6px;
-      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: auto;
+      padding-top: 6px;
     }
 
-    .product-price {
-      font-size: 20px;
-      font-weight: 800;
+    .currency {
       color: var(--primary);
+      font-size: 10px;
+      font-weight: 800;
     }
 
-    .product-price::before {
-      content: '$';
-      font-size: 13px;
+    .price {
+      color: var(--primary);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1;
     }
 
-    .product-original-price {
-      font-size: 12px;
-      color: var(--text-light);
-      text-decoration: line-through;
+    .price-note {
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 800;
     }
 
-    .product-tag {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 20px;
-      z-index: 1;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* ========== Sellers Section ========== */
-    .sellers-section {
-      margin: 20px 16px;
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow-card);
-    }
-
-    .sellers-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px 16px;
-    }
-
-    .seller-item {
+    .micro-tags {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 7px;
+    }
+
+    .micro-tag {
+      max-width: 100%;
+      border-radius: 5px;
+      padding: 3px 5px;
+      background: rgba(15, 159, 150, 0.1);
+      color: #08756f;
+      font-size: 8px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .seller-band {
+      border: 1px solid rgba(233, 220, 210, 0.9);
+      border-radius: var(--radius);
+      padding: 14px 12px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .seller-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px 10px;
+    }
+
+    .seller {
+      min-width: 0;
+      display: grid;
+      justify-items: center;
+      gap: 8px;
     }
 
     .seller-avatar {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
-      border: 3px solid white;
-      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+      width: 68px;
+      aspect-ratio: 1;
       overflow: hidden;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .seller-item:active .seller-avatar {
-      transform: scale(0.95);
+      border: 3px solid #ffffff;
+      border-radius: 999px;
+      background: #eef2f7;
+      box-shadow: 0 6px 15px rgba(23, 32, 51, 0.14);
     }
 
     .seller-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: none;
-    }
-
-    .seller-avatar-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-light);
-      font-size: 22px;
     }
 
     .seller-name {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-sub);
+      width: 100%;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.2;
       text-align: center;
-      max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    /* ========== Footer Section ========== */
-    .footer-section {
-      margin: 20px 16px;
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      padding: 24px 20px;
-      box-shadow: var(--shadow-card);
-    }
-
-    .footer-content {
-      color: var(--text-sub);
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    .footer-content .placeholder {
-      color: var(--text-light);
-      font-style: italic;
-      padding: 30px 20px;
-      text-align: center;
-      border: 2px dashed var(--text-light);
-      border-radius: var(--radius-sm);
-    }
-
-    /* ========== Floating Download Button ========== */
-    .download-btn {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      text-decoration: none;
-      padding: 14px 32px;
-      border-radius: 50px;
-      font-size: 15px;
-      font-weight: 700;
+    .verified {
+      min-height: 96px;
       display: flex;
       align-items: center;
+      justify-content: center;
+      padding: 10px 4px;
+    }
+
+    .verified-badge-art {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transform: scale(0.72);
+      transform-origin: center;
+    }
+
+    .verified-pill {
+      min-width: 118px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: #706b83;
+      color: #ffffff;
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    }
+
+    .verified-shield {
+      position: relative;
+      width: 38px;
+      height: 42px;
+      background: #35aa45;
+      clip-path: polygon(50% 0, 88% 14%, 88% 55%, 50% 100%, 12% 55%, 12% 14%);
+      filter: drop-shadow(0 2px 2px rgba(23, 32, 51, 0.18));
+    }
+
+    .verified-shield::before {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      background: #43bd52;
+      clip-path: polygon(50% 0, 88% 14%, 88% 55%, 50% 100%, 12% 55%, 12% 14%);
+    }
+
+    .verified-shield::after {
+      content: "";
+      position: absolute;
+      left: 14px;
+      top: 13px;
+      width: 8px;
+      height: 15px;
+      border: solid #ffffff;
+      border-width: 0 4px 4px 0;
+      transform: rotate(45deg);
+    }
+
+    .footer {
+      display: grid;
       gap: 10px;
-      box-shadow: 0 6px 24px rgba(255, 107, 107, 0.4);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      z-index: 1000;
+      border-radius: var(--radius);
+      padding: 16px 14px;
+      background: linear-gradient(135deg, #172033, #0f9f96);
+      color: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .footer strong {
+      color: #ffffff;
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .footer p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .dock {
+      position: fixed;
+      left: 50%;
+      bottom: max(14px, env(safe-area-inset-bottom));
+      z-index: 10;
+      width: min(calc(100% - 24px), 426px);
+      transform: translateX(-50%);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      border: 1px solid rgba(233, 220, 210, 0.9);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 14px 36px rgba(23, 32, 51, 0.18);
+    }
+
+    .dock-copy {
+      min-width: 0;
+      padding-left: 8px;
+    }
+
+    .dock-copy strong {
+      display: block;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .dock-copy span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .download-btn {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0 18px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1;
+      box-shadow: 0 8px 18px rgba(255, 90, 61, 0.34);
+      transition: transform 160ms ease, box-shadow 160ms ease;
       white-space: nowrap;
     }
 
     .download-btn:active {
-      transform: translateX(-50%) scale(0.96);
+      transform: scale(0.97);
+      box-shadow: 0 4px 12px rgba(255, 90, 61, 0.3);
     }
 
-    .download-btn-icon {
-      font-size: 18px;
-    }
-
-    .download-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 50px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 82px;
+      z-index: 20;
+      max-width: min(330px, calc(100% - 36px));
+      transform: translate(-50%, 16px);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(23, 32, 51, 0.92);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.25;
+      text-align: center;
+      opacity: 0;
       pointer-events: none;
+      transition: opacity 180ms ease, transform 180ms ease;
     }
 
-    /* Pulse animation for download button */
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 6px 24px rgba(255, 107, 107, 0.4); }
-      50% { box-shadow: 0 6px 32px rgba(255, 107, 107, 0.6); }
+    .toast.is-visible {
+      opacity: 1;
+      transform: translate(-50%, 0);
     }
 
-    .download-btn {
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    /* ========== Safe Area ========== */
-    .footer-safe {
-      height: env(safe-area-inset-bottom, 20px);
-    }
-
-    /* ========== Animations ========== */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+    @media (min-width: 451px) {
+      .page {
+        padding-top: 18px;
       }
     }
 
-    .rules-section { animation: fadeInUp 0.5s ease 0.1s both; }
-    .products-section { animation: fadeInUp 0.5s ease 0.2s both; }
-    .sellers-section { animation: fadeInUp 0.5s ease 0.3s both; }
-    .footer-section { animation: fadeInUp 0.5s ease 0.4s both; }
-
-    .product-card:nth-child(1) { animation: fadeInUp 0.4s ease 0.3s both; }
-    .product-card:nth-child(2) { animation: fadeInUp 0.4s ease 0.35s both; }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
-    }
-
-    .download-btn {
-      animation: slideUp 0.5s ease 0.5s both, pulse 2s ease-in-out 1s infinite;
-    }
-
-    /* ========== Responsive ========== */
-    @media (max-width: 340px) {
-      .products-grid {
-        gap: 10px;
+    @media (max-width: 360px) {
+      .page {
+        padding-inline: 10px;
       }
 
-      .product-info {
-        padding: 10px;
+      .hero-panel {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .hero-tag {
+        justify-self: start;
+      }
+
+      .product-grid {
+        gap: 6px;
+      }
+
+      .product-body {
+        padding: 7px;
+      }
+
+      .seller-avatar {
+        width: 62px;
+      }
+
+      .dock {
+        grid-template-columns: 1fr;
+        border-radius: 18px;
       }
 
       .download-btn {
-        padding: 12px 24px;
-        font-size: 14px;
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <main class="page">
+    <header class="topbar" aria-label="ISLANDS event">
+      <a class="brand js-placeholder-link" href="#" data-link-name="ISLANDS home" aria-label="ISLANDS home">
+        <span class="brand-mark">
+          <img src="logo.png" alt="ISLANDS">
+        </span>
+        <span class="brand-copy">
+          <span class="brand-name">ISLANDS</span>
+          <span class="brand-meta">New arrival event</span>
+        </span>
+      </a>
+      <span class="date-pill">Apr 25, 2026 ET</span>
+    </header>
 
-    <!-- ========== Hero Banner ========== -->
-    <!-- Recommended size: 750 x 500 px (@2x), displays at 375 x 250 -->
-    <div class="hero-banner">
-      <img src="banner.jpg" alt="Event Banner">
-      <div class="hero-placeholder">
-        <div class="hero-placeholder-icon">🖼️</div>
-        <div class="hero-placeholder-text">Banner Area</div>
-        <div class="hero-placeholder-size">Recommended: 750 × 500 px</div>
+    <section class="hero" aria-label="Weekly Saturday Pre-sale">
+      <img src="banner.png" alt="Weekly Saturday pre-sale banner">
+      <div class="hero-panel">
+        <div>
+          <div class="hero-kicker">24 hours only</div>
+          <div class="hero-title">Weekly Saturday Pre-sale</div>
+        </div>
+        <div class="hero-tag">Free shipping</div>
       </div>
+    </section>
+
+    <section class="section" aria-labelledby="rules-title">
+      <div class="section-head">
+        <h1 class="section-title" id="rules-title">Event Rules</h1>
+        <p class="section-note">Limited release</p>
+      </div>
+      <div class="rules">
+        <article class="rule">
+          <span class="rule-index"><span>1</span></span>
+          <div>
+            <strong>Weekly Saturday Pre-sale</strong>
+            <span>New arrivals at special prices.</span>
+          </div>
+        </article>
+        <article class="rule">
+          <span class="rule-index"><span>2</span></span>
+          <div>
+            <strong>April 25, 2026 (ET), 24 hours only</strong>
+            <span>Once the event ends, pre-sale pricing closes.</span>
+          </div>
+        </article>
+        <article class="rule">
+          <span class="rule-index"><span>3</span></span>
+          <div>
+            <strong>Free shipping included</strong>
+            <span>Orders ship from China within 10 days.</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="deals-title">
+      <div class="section-head">
+        <h2 class="section-title" id="deals-title">Flash Deals</h2>
+        <p class="section-note">Authentic items</p>
+      </div>
+      <div class="product-grid">
+        <a class="product-card" href="https://islands.club/spu?id=991040170352497956&_region=US&_lang=en">
+          <span class="product-badge-top">Pre-sale</span>
+          <div class="product-image">
+            <img src="product1.png" alt="MOKOKO Mermaid Hanging Card">
+          </div>
+          <div class="product-body">
+            <div class="product-series">The Monsters De Vliegende Series</div>
+            <div class="product-name">MOKOKO Mermaid Hanging Card</div>
+            <div class="price-row">
+              <span class="currency">$</span>
+              <span class="price">89</span>
+              <span class="price-note">USD</span>
+            </div>
+            <div class="micro-tags">
+              <span class="micro-tag">100% Authentic</span>
+              <span class="micro-tag">No Hidden Fees</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="product-card" href="https://islands.club/spu?id=991040151025111672&_region=US&_lang=en">
+          <span class="product-badge-top">Pre-sale</span>
+          <div class="product-image">
+            <img src="product2.png" alt="LABUBU Sailor Hanging Card">
+          </div>
+          <div class="product-body">
+            <div class="product-series">The Monsters De Vliegende Series</div>
+            <div class="product-name">LABUBU Sailor Hanging Card</div>
+            <div class="price-row">
+              <span class="currency">$</span>
+              <span class="price">59</span>
+              <span class="price-note">USD</span>
+            </div>
+            <div class="micro-tags">
+              <span class="micro-tag">100% Authentic</span>
+              <span class="micro-tag">No Hidden Fees</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="product-card" href="https://islands.club/spu?id=991035837804232029&_region=US&_lang=en">
+          <span class="product-badge-top">Pre-sale</span>
+          <div class="product-image">
+            <img src="product3.png" alt="LABUBU Captain Hanging Card">
+          </div>
+          <div class="product-body">
+            <div class="product-series">The Monsters De Vliegende Series</div>
+            <div class="product-name">LABUBU Captain Hanging Card</div>
+            <div class="price-row">
+              <span class="currency">$</span>
+              <span class="price">59</span>
+              <span class="price-note">USD</span>
+            </div>
+            <div class="micro-tags">
+              <span class="micro-tag">100% Authentic</span>
+              <span class="micro-tag">No Hidden Fees</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="sellers-title">
+      <div class="section-head">
+        <h2 class="section-title" id="sellers-title">Participating Sellers</h2>
+        <p class="section-note">Verified</p>
+      </div>
+      <div class="seller-band">
+        <div class="seller-grid">
+          <a class="seller" href="https://islands.club/user?userId=977256452873790898&_region=US&_lang=en">
+            <span class="seller-avatar">
+              <img src="seller1.png" alt="Coco">
+            </span>
+            <span class="seller-name">Coco</span>
+          </a>
+          <a class="seller" href="https://islands.club/user?userId=977317853726257965&_region=US&_lang=en">
+            <span class="seller-avatar">
+              <img src="seller2.png" alt="Peanut">
+            </span>
+            <span class="seller-name">Peanut</span>
+          </a>
+          <a class="seller" href="https://islands.club/user?userId=946481386552866726&_region=US&_lang=en&_appName=kuril&_pkgId=4001&_userId=872729799431349229&_createdTimestamp=1777039591840">
+            <span class="seller-avatar">
+              <img src="seller3.png" alt="Tina">
+            </span>
+            <span class="seller-name">Tina</span>
+          </a>
+          <a class="seller" href="https://islands.club/user?userId=946481386552866726&_region=US&_lang=en">
+            <span class="seller-avatar">
+              <img src="seller4.png" alt="Rayovo">
+            </span>
+            <span class="seller-name">Rayovo</span>
+          </a>
+          <a class="seller" href="https://islands.club/user?userId=962097230511098621&_region=US&_lang=en">
+            <span class="seller-avatar">
+              <img src="seller5.png" alt="JJanJan">
+            </span>
+            <span class="seller-name">JJanJan</span>
+          </a>
+          <div class="verified" aria-label="All sellers authenticated">
+            <span class="verified-badge-art" aria-hidden="true">
+              <span class="verified-pill">Verified</span>
+              <span class="verified-shield"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section footer" aria-label="Event notes">
+      <strong>Join our Discord community</strong>
+      <p>Blind box items are non-refundable and non-exchangeable.</p>
+      <p>Ask questions, get drop support, and join weekly community giveaways.</p>
+    </section>
+  </main>
+
+  <aside class="dock" aria-label="Download ISLANDS app">
+    <div class="dock-copy">
+      <strong>Shop the pre-sale in app</strong>
+      <span>Fast checkout for limited drops</span>
     </div>
+    <a class="download-btn js-placeholder-link" href="#" data-link-name="Download App">Download App</a>
+  </aside>
 
-    <!-- ========== Rules ========== -->
-    <section class="rules-section">
-      <h2 class="section-title">
-        <span class="section-title-icon">📋</span>
-        Event Rules
-      </h2>
-      <div class="rules-content">
-        <p class="placeholder">Rules content to be added...</p>
-        <!--
-        <p>1. Event period: XX/XX/2024 - XX/XX/2024</p>
-        <p>2. Limited stock available, while supplies last</p>
-        <p>3. Maximum X items per customer</p>
-        -->
-      </div>
-    </section>
+  <div class="toast" role="status" aria-live="polite"></div>
 
-    <!-- ========== Products ========== -->
-    <section class="products-section">
-      <div class="products-header">
-        <h2 class="section-title">
-          <span class="section-title-icon">🔥</span>
-          Flash Deals
-        </h2>
-      </div>
+  <script>
+    const toast = document.querySelector(".toast");
+    let toastTimer;
 
-      <div class="products-grid">
-        <!-- Product 1 -->
-        <a href="#" class="product-card" data-product="1">
-          <span class="product-tag">Sale</span>
-          <div class="product-image">
-            <img src="product1.jpg" alt="Product 1">
-            <span class="product-image-placeholder">Product 1<br>1:1 ratio</span>
-          </div>
-          <div class="product-info">
-            <div class="product-name">Product name here</div>
-            <div class="product-price-row">
-              <span class="product-price">99</span>
-              <span class="product-original-price">$199</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Product 2 -->
-        <a href="#" class="product-card" data-product="2">
-          <span class="product-tag">Sale</span>
-          <div class="product-image">
-            <img src="product2.jpg" alt="Product 2">
-            <span class="product-image-placeholder">Product 2<br>1:1 ratio</span>
-          </div>
-          <div class="product-info">
-            <div class="product-name">Product name here</div>
-            <div class="product-price-row">
-              <span class="product-price">99</span>
-              <span class="product-original-price">$199</span>
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- ========== Sellers ========== -->
-    <section class="sellers-section">
-      <h2 class="section-title">
-        <span class="section-title-icon">👥</span>
-        Participating Sellers
-      </h2>
-
-      <div class="sellers-grid">
-        <!-- Seller 1 -->
-        <a href="#" class="seller-item" data-seller="1">
-          <div class="seller-avatar">
-            <img src="seller1.jpg" alt="Seller 1">
-            <span class="seller-avatar-placeholder">👤</span>
-          </div>
-          <span class="seller-name">Seller 1</span>
-        </a>
-
-        <!-- Seller 2 -->
-        <a href="#" class="seller-item" data-seller="2">
-          <div class="seller-avatar">
-            <img src="seller2.jpg" alt="Seller 2">
-            <span class="seller-avatar-placeholder">👤</span>
-          </div>
-          <span class="seller-name">Seller 2</span>
-        </a>
-
-        <!-- Seller 3 -->
-        <a href="#" class="seller-item" data-seller="3">
-          <div class="seller-avatar">
-            <img src="seller3.jpg" alt="Seller 3">
-            <span class="seller-avatar-placeholder">👤</span>
-          </div>
-          <span class="seller-name">Seller 3</span>
-        </a>
-
-        <!-- Seller 4 -->
-        <a href="#" class="seller-item" data-seller="4">
-          <div class="seller-avatar">
-            <img src="seller4.jpg" alt="Seller 4">
-            <span class="seller-avatar-placeholder">👤</span>
-          </div>
-          <span class="seller-name">Seller 4</span>
-        </a>
-
-        <!-- Seller 5 -->
-        <a href="#" class="seller-item" data-seller="5">
-          <div class="seller-avatar">
-            <img src="seller5.jpg" alt="Seller 5">
-            <span class="seller-avatar-placeholder">👤</span>
-          </div>
-          <span class="seller-name">Seller 5</span>
-        </a>
-
-        <!-- Seller 6 -->
-        <a href="#" class="seller-item" data-seller="6">
-          <div class="seller-avatar">
-            <img src="seller6.jpg" alt="Seller 6">
-            <span class="seller-avatar-placeholder">👤</span>
-          </div>
-          <span class="seller-name">Seller 6</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- ========== Footer Content ========== -->
-    <section class="footer-section">
-      <div class="footer-content">
-        <p class="placeholder">Footer content to be added...</p>
-        <!--
-        Add your custom content here
-        -->
-      </div>
-    </section>
-
-    <div class="footer-safe"></div>
-  </div>
-
-  <!-- ========== Floating Download Button ========== -->
-  <a href="#" class="download-btn">
-    <span class="download-btn-icon">📲</span>
-    Download App
-  </a>
-
+    document.querySelectorAll(".js-placeholder-link").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (link.getAttribute("href") !== "#") return;
+        event.preventDefault();
+        const name = link.dataset.linkName || "This link";
+        toast.textContent = `${name} link is ready to connect.`;
+        toast.classList.add("is-visible");
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(() => {
+          toast.classList.remove("is-visible");
+        }, 1800);
+      });
+    });
+  </script>
 </body>
 </html>
