@@ -1073,47 +1073,42 @@
   <div class="toast" role="status"></div>
 
   <script>
-    // Bridge injection for in-app navigation
-    var inject_default = () => {
-      var bridge = {
-        default: void 0,
-        call: function(action, params, callbacks) {
-          if (window.IslandsBridge && window.IslandsBridge.call) {
-            window.IslandsBridge.call(action, JSON.stringify(params), callbacks);
-          } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.IslandsBridge) {
-            window.webkit.messageHandlers.IslandsBridge.postMessage({action, params, callbacks});
-          }
+    // Try to call bridge for in-app navigation, fallback to normal link if not available
+    function navigateInApp(url) {
+      try {
+        // Try Android bridge
+        if (window.IslandsBridge && window.IslandsBridge.call) {
+          window.IslandsBridge.call("navigateTo", JSON.stringify({ path: url }));
+          return true;
         }
-      };
-      window.callBridge = function(action, params, callbacks) {
-        bridge.call(action, params, callbacks);
-      };
-    };
-    inject_default();
-
-    // Check if running inside app
-    function isInApp() {
-      return !!(window.IslandsBridge || (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.IslandsBridge));
+        // Try iOS bridge
+        if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.IslandsBridge) {
+          window.webkit.messageHandlers.IslandsBridge.postMessage({ action: "navigateTo", params: { path: url } });
+          return true;
+        }
+        // Try global callBridge (might be injected by app)
+        if (typeof callBridge === 'function') {
+          callBridge("navigateTo", { path: url }, {});
+          return true;
+        }
+      } catch (e) {
+        console.log('Bridge not available:', e);
+      }
+      return false;
     }
 
-    // Handle in-app navigation for product and seller links
+    // Handle navigation for product and seller links
     document.querySelectorAll('.product-card, .seller').forEach((link) => {
       link.addEventListener('click', (e) => {
         const targetUrl = link.getAttribute('href');
         if (!targetUrl || targetUrl === '#') return;
 
-        if (isInApp()) {
-          e.preventDefault();
-          callBridge(
-            "navigateTo",
-            { path: targetUrl },
-            {
-              success: (result) => console.log('Navigation success:', result),
-              fail: (error) => console.error('Navigation failed:', error)
-            }
-          );
+        e.preventDefault();
+
+        // Try bridge first, fallback to normal navigation
+        if (!navigateInApp(targetUrl)) {
+          window.location.href = targetUrl;
         }
-        // If not in app, let the default <a> behavior handle it
       });
     });
   </script>
