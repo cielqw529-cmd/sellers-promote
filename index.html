@@ -1073,31 +1073,41 @@
   <div class="toast" role="status"></div>
 
   <script>
-    // Try to call bridge for in-app navigation, fallback to normal link if not available
-    function navigateInApp(url) {
-      try {
-        // Try Android bridge
-        if (window.IslandsBridge && window.IslandsBridge.call) {
-          window.IslandsBridge.call("navigateTo", JSON.stringify({ path: url }));
-          return true;
+    // inject.js - Bridge functionality
+    var inject_default = () => {
+      var bridge = {
+        default: void 0,
+        call: function (b, a, c) {
+          console.log(b, a, c);
+          var e = "";
+          if (typeof a == "object") {
+            e = JSON.stringify(a);
+          } else if (typeof a == "string") {
+            e = a;
+          }
+          // Try different bridge methods
+          if (window.dsBridge) {
+            window.dsBridge.call(b, e, c);
+          } else if (window._dsbridge) {
+            window._dsbridge.call(b, e, c);
+          } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers._dsbridge) {
+            window.webkit.messageHandlers._dsbridge.postMessage({ method: b, args: e, callbackId: c });
+          } else if (window.prompt) {
+            var r = window.prompt("_dsbridge=" + b, e);
+            if (r && c && c.success) {
+              c.success(JSON.parse(r));
+            }
+          }
         }
-        // Try iOS bridge
-        if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.IslandsBridge) {
-          window.webkit.messageHandlers.IslandsBridge.postMessage({ action: "navigateTo", params: { path: url } });
-          return true;
-        }
-        // Try global callBridge (might be injected by app)
-        if (typeof callBridge === 'function') {
-          callBridge("navigateTo", { path: url }, {});
-          return true;
-        }
-      } catch (e) {
-        console.log('Bridge not available:', e);
-      }
-      return false;
-    }
+      };
+      window.callBridge = function (action, params, callbacks) {
+        bridge.call(action, params, callbacks);
+      };
+    };
+    // Initialize the bridge
+    inject_default();
 
-    // Handle navigation for product and seller links
+    // Setup page click navigation using callBridge
     document.querySelectorAll('.product-card, .seller').forEach((link) => {
       link.addEventListener('click', (e) => {
         const targetUrl = link.getAttribute('href');
@@ -1105,10 +1115,21 @@
 
         e.preventDefault();
 
-        // Try bridge first, fallback to normal navigation
-        if (!navigateInApp(targetUrl)) {
-          window.location.href = targetUrl;
-        }
+        // Use callBridge for navigation
+        callBridge(
+          "navigateTo",
+          { path: targetUrl },
+          {
+            success: (result) => {
+              console.log('Navigation success:', result);
+            },
+            fail: (error) => {
+              console.error('Navigation failed:', error);
+              // Fallback to normal navigation
+              window.location.href = targetUrl;
+            }
+          }
+        );
       });
     });
   </script>
