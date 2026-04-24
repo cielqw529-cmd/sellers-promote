@@ -1073,63 +1073,19 @@
   <div class="toast" role="status"></div>
 
   <script>
-    // inject.js - Bridge functionality
-    var inject_default = () => {
-      var bridge = {
-        default: void 0,
-        call: function (b, a, c) {
-          console.log(b, a, c);
-          var e = "";
-          if (typeof a == "object") {
-            e = JSON.stringify(a);
-          } else if (typeof a == "string") {
-            e = a;
-          }
-          // Try different bridge methods
-          if (window.dsBridge) {
-            window.dsBridge.call(b, e, c);
-          } else if (window._dsbridge) {
-            window._dsbridge.call(b, e, c);
-          } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers._dsbridge) {
-            window.webkit.messageHandlers._dsbridge.postMessage({ method: b, args: e, callbackId: c });
-          } else if (window.prompt) {
-            var r = window.prompt("_dsbridge=" + b, e);
-            if (r && c && c.success) {
-              c.success(JSON.parse(r));
-            }
-          }
-        }
-      };
-      window.callBridge = function (action, params, callbacks) {
-        bridge.call(action, params, callbacks);
-      };
-    };
-    // Initialize the bridge
-    inject_default();
+    // Simple toast for placeholder links
+    const toast = document.querySelector(".toast");
+    let toastTimer;
 
-    // Setup page click navigation using callBridge
-    document.querySelectorAll('.product-card, .seller').forEach((link) => {
-      link.addEventListener('click', (e) => {
-        const targetUrl = link.getAttribute('href');
-        if (!targetUrl || targetUrl === '#') return;
-
+    document.querySelectorAll(".js-placeholder-link").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        if (link.getAttribute("href") !== "#") return;
         e.preventDefault();
-
-        // Use callBridge for navigation
-        callBridge(
-          "navigateTo",
-          { path: targetUrl },
-          {
-            success: (result) => {
-              console.log('Navigation success:', result);
-            },
-            fail: (error) => {
-              console.error('Navigation failed:', error);
-              // Fallback to normal navigation
-              window.location.href = targetUrl;
-            }
-          }
-        );
+        const name = link.dataset.linkName || "This link";
+        toast.textContent = `${name} is ready to connect.`;
+        toast.classList.add("is-visible");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2000);
       });
     });
   </script>
