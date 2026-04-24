@@ -542,18 +542,40 @@
 
     .product-hint {
       margin-top: 14px;
-      padding: 12px 16px;
-      background: rgba(251, 191, 36, 0.15);
-      border: 1px dashed rgba(251, 191, 36, 0.5);
-      border-radius: 10px;
-      font-size: 12px;
-      color: var(--sand);
+      padding: 14px 18px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
       text-align: center;
-      line-height: 1.5;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-hint::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+    }
+
+    .product-hint p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .product-hint p:first-child {
+      color: var(--navy);
+      font-weight: 600;
+      margin-bottom: 4px;
     }
 
     .product-hint strong {
-      color: var(--gold);
+      color: var(--coral);
       font-weight: 700;
     }
 
@@ -1007,7 +1029,10 @@
           </div>
         </a>
       </div>
-      <p class="product-hint">Products will only be available at the specified time. Tap <strong>Wish</strong> to add to your list first!</p>
+      <div class="product-hint">
+        <p>Products will only be available at the specified time.</p>
+        <p>Tap <strong>Wish</strong> to add to your list first!</p>
+      </div>
     </section>
 
     <section class="section">
