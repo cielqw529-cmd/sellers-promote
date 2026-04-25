@@ -1073,19 +1073,30 @@
   <div class="toast" role="status"></div>
 
   <script>
-    // Simple toast for placeholder links
-    const toast = document.querySelector(".toast");
-    let toastTimer;
+    // Handle in-app navigation for product and seller links
+    document.querySelectorAll('.product-card, .seller').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var targetUrl = link.getAttribute('href');
+        if (!targetUrl || targetUrl === '#') return;
 
-    document.querySelectorAll(".js-placeholder-link").forEach((link) => {
-      link.addEventListener("click", (e) => {
-        if (link.getAttribute("href") !== "#") return;
-        e.preventDefault();
-        const name = link.dataset.linkName || "This link";
-        toast.textContent = `${name} is ready to connect.`;
-        toast.classList.add("is-visible");
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2000);
+        // Check if callBridge exists (injected by app)
+        if (typeof callBridge === 'function') {
+          e.preventDefault();
+          callBridge(
+            "navigateTo",
+            { path: targetUrl },
+            {
+              success: function(result) {
+                console.log('Navigation success:', result);
+              },
+              fail: function(error) {
+                console.error('Navigation failed:', error);
+                window.location.href = targetUrl;
+              }
+            }
+          );
+        }
+        // If callBridge not available, let default <a> behavior work
       });
     });
   </script>
