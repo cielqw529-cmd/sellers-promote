@@ -1073,30 +1073,150 @@
   <div class="toast" role="status"></div>
 
   <script>
+    // inject.js - Bridge functionality
+    var inject_default = () => {
+      var bridge = {
+        default: void 0,
+        call: function (b, a, c) {
+          console.log(b, a, c)
+          var e = "";
+          typeof a === "function" && (c = a, a = {});
+          a = { data: void 0 === a ? null : a };
+          if (typeof c === "function") {
+            var g = "dscb" + window.dscb++;
+            window[g] = c;
+            a._dscbstub = g;
+          }
+          a = JSON.stringify(a);
+          if (window._dsbridge)
+            e = _dsbridge.call(b, a);
+          else if (window._dswk || navigator.userAgent.indexOf("_dsbridge") != -1)
+            e = prompt("_dsbridge=" + b, a);
+          return JSON.parse(e || "{}").data;
+        },
+        register: function (b, a, c) {
+          c = c ? window._dsaf : window._dsf;
+          window._dsInit || (window._dsInit = true, setTimeout(function () {
+            bridge.call("_dsb.dsinit");
+          }, 0));
+          typeof a === "object" ? c._obs[b] = a : c[b] = a;
+        },
+        registerAsyn: function (b, a) {
+          this.register(b, a, true);
+        },
+        hasNativeMethod: function (b, a) {
+          return this.call("_dsb.hasNativeMethod", { name: b, type: a || "all" });
+        },
+        disableJavascriptDialogBlock: function (b) {
+          this.call("_dsb.disableJavascriptDialogBlock", { disable: false !== b });
+        }
+      };
+      !function () {
+        if (!window._dsf) {
+          var b = {
+            _dsf: { _obs: {} },
+            _dsaf: { _obs: {} },
+            dscb: 0,
+            dsBridge: bridge,
+            close: function () {
+              bridge.call("_dsb.closePage");
+            },
+            _handleMessageFromNative: function (a2) {
+              var e = JSON.parse(a2.data);
+              var b2 = { id: a2.callbackId, complete: true };
+              var c = this._dsf[a2.method];
+              var d = this._dsaf[a2.method];
+              var h = function (a3, c2) {
+                b2.data = a3.apply(c2, e);
+                bridge.call("_dsb.returnValue", b2);
+              };
+              var k = function (a3, c2) {
+                e.push(function (a4, c3) {
+                  b2.data = a4;
+                  b2.complete = false !== c3;
+                  bridge.call("_dsb.returnValue", b2);
+                });
+                a3.apply(c2, e);
+              };
+              if (c)
+                h(c, this._dsf);
+              else if (d)
+                k(d, this._dsaf);
+              else if (c = a2.method.split("."), !(c.length < 2)) {
+                a2 = c.pop();
+                var c = c.join(".");
+                var d = this._dsf._obs;
+                var d = d[c] || {};
+                var f = d[a2];
+                f && typeof f === "function" ? h(f, d) : (d = this._dsaf._obs, d = d[c] || {}, (f = d[a2]) && typeof f === "function" && k(f, d));
+              }
+            }
+          };
+          var a;
+          for (a in b)
+            window[a] = b[a];
+          bridge.register("_hasJavascriptMethod", function (a2, b2) {
+            b2 = a2.split(".");
+            if (b2.length < 2)
+              return !(!_dsf[b2] && !_dsaf[b2]);
+            a2 = b2.pop();
+            b2 = b2.join(".");
+            return (b2 = _dsf._obs[b2] || _dsaf._obs[b2]) && !!b2[a2];
+          });
+        }
+      }();
+    };
+
+    function callBridge(action, params, { success, fail }) {
+      if (!window.dsBridge && !window.WebViewJSBridge)
+        return false;
+      if (window.WebViewJSBridge) {
+        return window.WebViewJSBridge.callHandler(action, {
+          data: JSON.stringify(params),
+          success,
+          fail
+        });
+      }
+      return window.dsBridge.call("callAsyn", { action, ...params }, function (v) {
+        if (v) {
+          success && success(v);
+        } else {
+          fail && fail(v);
+        }
+      });
+    }
+
+    function navigateToUrl(arg, ori) {
+      var url = arg.url || arg;
+      var success = arg.success;
+      var fail = arg.fail;
+      if (ori) {
+        window.location.href = url;
+      } else {
+        callBridge("navigateTo", { path: url }, { success: success, fail: fail });
+      }
+    }
+
+    // Initialize the bridge
+    inject_default();
+
     // Handle in-app navigation for product and seller links
     document.querySelectorAll('.product-card, .seller').forEach(function(link) {
       link.addEventListener('click', function(e) {
         var targetUrl = link.getAttribute('href');
         if (!targetUrl || targetUrl === '#') return;
 
-        // Check if callBridge exists (injected by app)
-        if (typeof callBridge === 'function') {
-          e.preventDefault();
-          callBridge(
-            "navigateTo",
-            { path: targetUrl },
-            {
-              success: function(result) {
-                console.log('Navigation success:', result);
-              },
-              fail: function(error) {
-                console.error('Navigation failed:', error);
-                window.location.href = targetUrl;
-              }
-            }
-          );
-        }
-        // If callBridge not available, let default <a> behavior work
+        e.preventDefault();
+        navigateToUrl({
+          url: targetUrl,
+          success: function(result) {
+            console.log('Navigation success:', result);
+          },
+          fail: function(error) {
+            console.error('Navigation failed:', error);
+            window.location.href = targetUrl;
+          }
+        });
       });
     });
   </script>
